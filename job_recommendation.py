@@ -24,18 +24,14 @@ import requests
 app = Flask(__name__)
 
 
-
+mydb = mysql.connector.connect(host="35.238.104.188",user="root",passwd="root",port=3306, db='680'
+                                   )
 
 
 @app.route('/recommendatio')
 def jobRec():
     user_id=2;
-    mydb = mysql.connector.connect(
-        host="35.238.104.188",
-        user="root",
-        passwd="root",
-        port=3306, db='680'
-        )
+    
 
     mycursor = mydb.cursor()
 
