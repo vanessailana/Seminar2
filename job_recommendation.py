@@ -23,7 +23,7 @@ import atoma
 import requests
 
 app = Flask(__name__)
-
+CORS(app)
 
 
 @app.route('/recommendations/<int:user_id>')
