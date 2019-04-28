@@ -1,1 +1,3 @@
-web: python3 job_recommendation.py
+web: gunicorn job_recommendation:app --timeout 1200
+
+
