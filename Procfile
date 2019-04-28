@@ -1,2 +1,4 @@
-gunicorn app.wsgi:job_recommendation -w 2 -b :8000 --timeout 120
+export FLASK_APP=job_recommendation.py
+
+web: python -m flask run 
 
