@@ -3,12 +3,12 @@ import pandas as pd
 from flask import Flask
 from flask import jsonify
 import mysql.connector
-
+from flaskext.mysql import MySQL
 import matplotlib.pyplot as plt
 import seaborn as sns
 import ast 
 import random 
-
+import os
 import json
 import feedparser
 import mysql.connector
@@ -23,18 +23,20 @@ import atoma
 import requests
 
 app = Flask(__name__)
+mysql = MySQL()
+
+app.config['MYSQL_DATABASE_USER'] = os.environ['MYSQL_USER']
+app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['MYSQL_PASSWORD']
+app.config['MYSQL_DATABASE_HOST'] = os.environ['MYSQL_HOST']
+app.config['MYSQL_DATABASE_DB'] = os.environ['MYSQL_DB']
+app.config['MYSQL_DATABASE_PORT'] = os.environ['MYSQL_PORT']
+mysql.init_app(app)
 
 @app.route('/test')
 def jobRec():
 
-    mydb = mysql.connector.connect(
-        host="35.238.104.188",
-        user="root",
-        passwd="root",
-        port=3306, db='680'
-        )
-
-    mycursor = mydb.cursor()
+   
+    mycursor = mysql.get_db().cursor()
 
     # get jobs 
 
