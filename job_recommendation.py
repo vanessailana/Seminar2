@@ -25,8 +25,8 @@ import requests
 app = Flask(__name__)
 
 
-@app.route('/recs/<int:user_id>', methods=['GET'])
-def jobRec(user_id):
+@app.route('/test')
+def jobRec():
 
     mydb = mysql.connector.connect(
         host="35.238.104.188",
@@ -64,6 +64,8 @@ def jobRec(user_id):
     cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
     indices = pd.Series(user_based_approach.index, index=user_based_approach[0])
     
+    user_id=2;
+
     idx=indices[user_id];
    
     sim_scores = list(enumerate(cosine_sim[idx]))
@@ -114,6 +116,3 @@ def hello_world():
 
 
 
-
-if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True)
