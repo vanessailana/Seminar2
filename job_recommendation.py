@@ -7,8 +7,7 @@ import mysql.connector
 import matplotlib.pyplot as plt
 import seaborn as sns
 import ast 
-import random 
-
+import random
 import json
 import feedparser
 import mysql.connector
@@ -23,12 +22,14 @@ import atoma
 import requests
 
 app = Flask(__name__)
-CORS(app)
 
 
-@app.route('/recommendations/<int:user_id>')
-def jobRec(user_id):
 
+
+
+@app.route('/recommendatio')
+def jobRec():
+    user_id=2;
     mydb = mysql.connector.connect(
         host="35.238.104.188",
         user="root",
@@ -94,8 +95,9 @@ def jobRec(user_id):
     df_temp = pd.DataFrame(data = jobs[Job_list])
 
     stuff=df_temp.to_json(orient='records')
+    
 
-    return stuff;
+    return str(stuff);
 
 
 @app.route('/stackrec')
