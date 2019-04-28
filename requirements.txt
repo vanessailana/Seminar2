@@ -1,0 +1,10 @@
+gunicorn==19.9.0
+numpy==1.16.1
+pandas==0.24.1
+flask==1.0.2
+mysql-connector-python==8.0.16
+feedparser==5.2.1
+scipy==1.2.1
+scikit-learn==0.19.2
+sklearn==0.0
+   
