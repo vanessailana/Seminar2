@@ -1,4 +1,4 @@
 export FLASK_APP=job_recommendation.py
 
-web: python -m flask run 
+web: python3 -m flask run 
 
