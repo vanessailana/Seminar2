@@ -28,10 +28,9 @@ mydb = mysql.connector.connect(host="35.238.104.188",user="root",passwd="root",p
                                    )
 
 
-@app.route('/recommendatio')
-def jobRec():
-    user_id=2;
-    
+@app.route('/recommendations/<int:user_id>')
+def jobRec(user_id):
+
 
     mycursor = mydb.cursor()
 
@@ -93,7 +92,7 @@ def jobRec():
     stuff=df_temp.to_json(orient='records')
     
 
-    return str(stuff);
+    return stuff;
 
 
 @app.route('/stackrec')
