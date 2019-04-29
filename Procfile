@@ -1,3 +1,3 @@
-web: gunicorn job_recommendation:app  --timeout 1200 
+web: gunicorn job_recommendation:app  
 
 
