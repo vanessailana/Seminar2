@@ -97,8 +97,8 @@ def jobRec(user_id):
     return stuff;
 
 
-@cross_origin(origin="http://localhost:4200/unique_recommendations")
 @app.route('/stackrec')
+@cross_origin(origin="http://localhost:4200/unique_recommendations")
 def recStack():
     feed=feedparser.parse("http://careers.stackoverflow.com/jobs/feed?location=losangeles");
     entry=feed.entries[:50]
