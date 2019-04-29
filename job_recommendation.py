@@ -6,9 +6,7 @@ import mysql.connector
 from flask_cors import CORS,cross_origin
 import matplotlib.pyplot as plt
 import seaborn as sns
-import random
 import ast 
-from random import shuffle;
 import json
 import feedparser
 import mysql.connector
