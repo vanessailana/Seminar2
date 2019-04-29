@@ -70,5 +70,3 @@ def hello_world():
 
 
 
-
-app.run('0.0.0.0', 8080)
