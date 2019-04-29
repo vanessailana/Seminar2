@@ -39,18 +39,18 @@ def get_db():
 def jobRec():
    
   
-   con= pymysql.connect(host='35.238.104.188', port=3306, user='root', password='root', db='680', cursorclass=pymysql.cursors.DictCursor)
+  con= pymysql.connect(host='35.238.104.188', port=3306, user='root', password='root', db='680', cursorclass=pymysql.cursors.DictCursor,connect_timeout=20)
    
        
-   cur = con.cursor()
-   cur.execute("SELECT * FROM users")
+  cur = con.cursor()
+  cur.execute("SELECT * FROM users")
        
-   rows = cur.fetchall()
+  rows = cur.fetchall()
 
    
    
    
-   return str(rows);
+  return jsonify(rows)
 
 
 @app.route('/stackrec')
@@ -70,3 +70,4 @@ def hello_world():
 
 
 
+app.run();
