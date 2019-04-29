@@ -102,7 +102,7 @@ def jobRec(user_id):
 @cross_origin(origin="http://localhost:4200/unique_recommendations")
 def recStack():
     feed=feedparser.parse("http://careers.stackoverflow.com/jobs/feed?location=losangeles");
-    entry=feed.entries[:50]
+    entry=sorted(feed.entries[:50], key=lambda x: random.random())
     stackOverflowJobs = []
     for e in entry:
         job = {'title': e.title, 'desc': e.description, 'location': e.location}
