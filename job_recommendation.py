@@ -20,7 +20,6 @@ from time import mktime
 from datetime import datetime
 import pymysql
 
-import atoma
 import requests
 
 app = Flask(__name__)
@@ -39,7 +38,7 @@ def get_db():
 def jobRec():
    
   
-  con= pymysql.connect(host='35.238.104.188', port=3306, user='root', password='root', db='680', cursorclass=pymysql.cursors.DictCursor,connect_timeout=20)
+  con= pymysql.connect(host='35.238.104.188', port=3306, user='root', password='root', db='680', cursorclass=pymysql.cursors.DictCursor)
    
        
   cur = con.cursor()
