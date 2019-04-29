@@ -6,7 +6,7 @@ import mysql.connector
 from flask_cors import CORS,cross_origin
 import matplotlib.pyplot as plt
 import seaborn as sns
-import ast 
+import ast
 import json
 import feedparser
 import mysql.connector
@@ -100,7 +100,7 @@ def jobRec(user_id):
 @cross_origin(origin="http://localhost:4200/unique_recommendations")
 def recStack():
     feed=feedparser.parse("http://careers.stackoverflow.com/jobs/feed?location=losangeles");
-    entry=feed.entries[:100];
+    entry=feed.entries[:50];
     stackOverflowJobs = []
     for e in entry:
         job = {'title': e.title, 'desc': e.description, 'location': e.location}
