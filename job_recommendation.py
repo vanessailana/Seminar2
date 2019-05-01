@@ -10,7 +10,6 @@ import random
 import ast 
 import random
 import json
-import os
 import feedparser
 import mysql.connector
 from scipy import stats
@@ -21,7 +20,7 @@ from time import mktime
 from datetime import datetime
 import pymysql
 
-
+import atoma
 import requests
 
 app = Flask(__name__)
@@ -29,7 +28,7 @@ app = Flask(__name__)
 
 
 @app.route('/recommendations/<int:user_id>')
-@cross_origin(origin="https://serene-mountain-68375.herokuapp.com/")
+@cross_origin(origin="https://quiet-waters-20201.herokuapp.com/")
 def jobRec(user_id):
    
 
@@ -54,9 +53,9 @@ def jobRec(user_id):
     mycursor.execute("SELECT * from  applicants");
     apps = pd.DataFrame(mycursor.fetchall());
 
-    user_based_approach[12] = user_based_approach[12].fillna('test')
-    user_based_approach[13] = user_based_approach[13].fillna('test')
-    user_based_approach[16] = str(user_based_approach[16].fillna('test'))
+    user_based_approach[12] = user_based_approach[12].fillna('') 
+    user_based_approach[13] = user_based_approach[13].fillna('')
+    user_based_approach[16] = str(user_based_approach[16].fillna(''))
     user_based_approach[7] = user_based_approach[12] + user_based_approach[13] + user_based_approach[16]
 
     tf = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
@@ -100,7 +99,7 @@ def jobRec(user_id):
 
 
 @app.route('/stackrec')
-@cross_origin(origin="https://serene-mountain-68375.herokuapp.com/")
+@cross_origin(origin="https://quiet-waters-20201.herokuapp.com/")
 def recStack():
     randomCity=['losangeles','sanfransico','newyork','miami','london','washington']
     randomElement=random.choice(randomCity)
@@ -115,8 +114,4 @@ def recStack():
 
 
 
-
-if __name__ == '__main__':
-    port=int(os.environ.get('PORT', 5000))
-    app.run(port=port)
 
