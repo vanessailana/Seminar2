@@ -29,7 +29,7 @@ app = Flask(__name__)
 
 
 @app.route('/recommendations/<int:user_id>')
-@cross_origin(origin="http://localhost:4200/unique_recommendations")
+@cross_origin(origin="https://serene-mountain-68375.herokuapp.com/")
 def jobRec(user_id):
    
 
@@ -100,9 +100,11 @@ def jobRec(user_id):
 
 
 @app.route('/stackrec')
-@cross_origin(origin="http://localhost:4200/unique_recommendations")
+@cross_origin(origin="https://serene-mountain-68375.herokuapp.com/")
 def recStack():
-    feed=feedparser.parse("http://careers.stackoverflow.com/jobs/feed?location=losangeles");
+    randomCity=['losangeles','sanfransico','newyork','miami','london','washington']
+    randomElement=random.choice(randomCity)
+    feed=feedparser.parse("http://careers.stackoverflow.com/jobs/feed?location="+randomElement)
     entry=sorted(feed.entries[:50], key=lambda x: random.random())
     stackOverflowJobs = []
     for e in entry:
