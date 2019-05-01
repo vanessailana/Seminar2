@@ -107,4 +107,3 @@ virtualenv==16.4.0
 websocket-client==0.56.0
 Werkzeug==0.14.1
 wrapt==1.11.1
-Flask-Cors==3.0.7 
