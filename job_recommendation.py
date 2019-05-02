@@ -46,18 +46,20 @@ def jobRec(user_id):
     jobs = pd.DataFrame(mycursor.fetchall());
 
 
-    mycursor.execute("SELECT *from  users ");
+    mycursor.execute("SELECT *from  users_ml ");
 
     user_based_approach = pd.DataFrame(mycursor.fetchall());
 
     mycursor.execute("SELECT * from  applicants");
     apps = pd.DataFrame(mycursor.fetchall());
 
-    user_based_approach[12] = user_based_approach[12].fillna('') 
-    user_based_approach[13] = user_based_approach[13].fillna('')
-    user_based_approach[16] = str(user_based_approach[16].fillna(''))
-    user_based_approach[7] = user_based_approach[12] + user_based_approach[13] + user_based_approach[16]
+  
+    user_based_approach[7] = user_based_approach[7].fillna('')
+    user_based_approach[8] = user_based_approach[8].fillna('')
+    user_based_approach[11] = str(user_based_approach[11].fillna(''))
 
+    user_based_approach[7] = user_based_approach[7] + user_based_approach[8] +user_based_approach[11]
+    
     tf = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
     tfidf_matrix = tf.fit_transform(user_based_approach[7])
 
@@ -95,8 +97,7 @@ def jobRec(user_id):
     stuff=df_temp.to_json(orient='records')
     
 
-    return stuff;
-
+    return  str(stuff);
 
 @app.route('/stackrec')
 @cross_origin(origin="https://quiet-waters-20201.herokuapp.com/")
@@ -115,3 +116,6 @@ def recStack():
 
 
 
+
+
+app.run();
