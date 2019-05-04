@@ -64,8 +64,22 @@ def jobRec():
     cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
    
     indices = pd.Series(jobs.index, index=jobs['Title'])
+
+    jobs=jobs.reset_index();
+
+    title=jobs['Title']
+
+    idx=indices[title];
+
+    sim_scores = list(enumerate(cosine_sim[idx]))
+    #print (sim_scores)
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    job_indices = [i[0] for i in sim_scores]
+
+
+
    
-    return  indices
+    return  idx;
     
 
 
