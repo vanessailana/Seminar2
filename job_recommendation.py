@@ -1,7 +1,5 @@
 import numpy as np
 import pandas as pd
-from flask import Flask
-from flask import jsonify
 import mysql.connector
 from flask_cors import CORS,cross_origin
 import matplotlib.pyplot as plt
@@ -24,7 +22,6 @@ import pymysql
 import atoma
 import requests
 
-app = Flask(__name__)
 
 
 
@@ -61,30 +58,50 @@ def jobRec():
     jobs[2] = jobs[7] + jobs[2]
     tf = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
     tfidf_matrix = tf.fit_transform(jobs[2])
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+    cosine_sim = linear_kernel(tfidf_matrix)
    
-    indices = pd.Series(jobs.index, index=jobs['Title'])
+    cosine_sim[0]
 
     jobs=jobs.reset_index();
+    
+    #indice of jobs
 
-    title=jobs['Title']
+    indices = pd.Series(jobs.index,index=jobs['Title'])
+    
+    title='Maintenance Tech';
+    
+    if title not in indices:
+        a=recStack();
+        print(a);
+    else:
 
-    idx=indices[title];
+        idx = indices[title]
+        
+        sim_scores = list(enumerate(cosine_sim[idx]))
+        
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        
+        job_indices = [i[0] for i in sim_scores]
+        
+        print("Similar jobs based on the job you picked")
+        
+        print(jobs[7].iloc[job_indices].head(10))
+        
+        
+     
 
-    sim_scores = list(enumerate(cosine_sim[idx]))
-    #print (sim_scores)
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    job_indices = [i[0] for i in sim_scores]
-
-
+        
+    
+ 
 
    
-    return  idx;
-    
+ 
 
+  
 
-@app.route('/stackrec')
-@cross_origin(origin="https://quiet-waters-20201.herokuapp.com/")
+  
+        return;
+
 def recStack():
     randomCity=['losangeles','sanfransico','newyork','miami','london','washington']
     randomElement=random.choice(randomCity)
@@ -94,7 +111,7 @@ def recStack():
     for e in entry:
         job = {'title': e.title, 'desc': e.description, 'location': e.location}
         stackOverflowJobs.append(job)
-    return jsonify(stackOverflowJobs)
+        return stackOverflowJobs;
 
 
 
