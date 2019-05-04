@@ -7,6 +7,7 @@ from flask_cors import CORS,cross_origin
 import matplotlib.pyplot as plt
 import seaborn as sns
 import random
+import re, cgi
 import ast 
 import random
 import json
@@ -27,9 +28,8 @@ app = Flask(__name__)
 
 
 
-@app.route('/recommendations/<int:user_id>')
-@cross_origin(origin="https://quiet-waters-20201.herokuapp.com/")
-def jobRec(user_id):
+#@app.route('/recommendations/<int:user_id>')
+def jobRec():
    
 
     mydb = mysql.connector.connect(host="35.238.104.188",user="root",passwd="root",port=3306, db='680'
@@ -52,48 +52,21 @@ def jobRec(user_id):
 
     mycursor.execute("SELECT * from  applicants");
     apps = pd.DataFrame(mycursor.fetchall());
-
- 
-    user_based_approach[7] = user_based_approach[7] + user_based_approach[8]+user_based_approach[11]
-
+    
+    
+    #find jobs that are similar
+    jobs['Title'] = jobs[7].fillna('')
+    jobs[2] = jobs[2].fillna('')
+    #jobs_US_base_line['Requirements'] = jobs_US_base_line['Requirements'].fillna('')
+    jobs[2] = jobs[7] + jobs[2]
     tf = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
-    tfidf_matrix = tf.fit_transform(user_based_approach[7])
-
+    tfidf_matrix = tf.fit_transform(jobs[2])
     cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
-    indices = pd.Series(user_based_approach.index, index=user_based_approach[0])
-    
-    idx=indices[user_id];
    
-    sim_scores = list(enumerate(cosine_sim[idx]))
-    #print (sim_scores)
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    user_indices = [i[0] for i in sim_scores]
-
-    user_based_approach = user_based_approach.reset_index()
-
-
-    indices = pd.Series(user_based_approach.index, index=user_based_approach[0])
-
+    indices = pd.Series(jobs.index, index=jobs['Title'])
    
-
-    sim_scores = list(enumerate(cosine_sim[idx]))
-        #print (sim_scores)
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    user_indices = [i[0] for i in sim_scores]
-
-    jobs_userwise = apps[4].isin(user_indices) #
-    df1 = pd.DataFrame(data = apps[jobs_userwise])
-    joblist = df1[3].tolist()
-    Job_list = jobs[0].isin(joblist)
-
+    return  indices
     
-    #job recommendations 
-    df_temp = pd.DataFrame(data = jobs[Job_list])
-
-    stuff=df_temp.to_json(orient='records')
-    
-
-    return stuff;
 
 
 @app.route('/stackrec')
@@ -112,5 +85,4 @@ def recStack():
 
 
 
-
-
+print(jobRec())
