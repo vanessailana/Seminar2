@@ -97,7 +97,7 @@ soupsieve==1.8
 SQLAlchemy==1.2.18
 storage==0.0.4.3
 tensorboard==1.12.2
-tensorflow==1.13.0rc2
+tensorflow==1.15.4
 tensorflow-estimator==1.13.0rc0
 termcolor==1.1.0
 texttable==0.9.1
